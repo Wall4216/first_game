@@ -1,19 +1,20 @@
 <template>
   <div class="board-wrapper">
     <div class="board">
-      <BoardItem v-for="field in fields" :field="field" :key="'item-' + field.id" />
+      <BoardItem :preview="preview" v-for="field in fields" :field="field" :key="'item-' + field.id" />
     </div>
 
     <p class="difficult">Сложность: <strong>{{ difficult }}</strong></p>
 
-    <button class="button" @click="start">Старт</button>
+    <button class="btn" @click="start">Старт</button>
   </div>
 </template>
 
 <script>
+import BoardItem from './BoardItem';
+import useGameInit from "@/components/composables/useGameInit";
+import useGameStart from "@/components/composables/useGameStart";
 
-import BoardItem from './BoardItem.vue';
-import { ref, onBeforeMount } from 'vue';
 export default {
   name: 'TheBoard',
   props: {},
@@ -21,59 +22,27 @@ export default {
     BoardItem,
   },
   setup() {
-    let difficult = ref(15);
-    let fields = ref([]);
     const number = 25;
 
-    const init = () => {
-      fields.value = [];
+    const { difficult, fields, init } = useGameInit(number);
 
-      for (let i = 0; i < number; i++) {
-        fields.value.push({
-          id: i,
-          clicked: false,
-          value: 0,
-        });
-      }
-    }
-
-    onBeforeMount(init);
+    const { start, preview } = useGameStart(init, fields, difficult, number);
 
     return {
       number,
       difficult,
       fields,
-      init
+      init,
+      start,
+      preview
     }
   },
-  methods: {
-    start() {
-      this.init();
-      this.Game();
-    },
-
-    Game() {
-      for (let i = 0; i < this.difficult; i++) {
-        const index = this.rand(0, this.number - 1);
-
-        if (this.fields[index].value !== 1) {
-          this.fields[index].value = 1;
-        } else {
-          i--;
-        }
-      }
-    },
-
-    rand(min, max) {
-      return Math.floor(Math.random() * (max - min)) + min;
-    },
-  }
 }
 </script>
 
 <style scoped>
-.board-wrapper{
-  margin-bottom:100px ;
+.board-wrapper {
+  margin-bottom: 100px;
 }
 
 .board {
@@ -82,17 +51,18 @@ export default {
   margin: 0 auto;
 }
 
-.button {
-  background: green;
+.btn {
+  background: #42b983cc;
   color: white;
   border: none;
-  padding: 10px;
+  border-radius: 2px;
+  padding: 10px 30px;
   margin: 10px 0;
   cursor: pointer;
   outline: none;
 }
 
 button:hover {
-background: greenyellow;
+  background: #42b983;
 }
 </style>
