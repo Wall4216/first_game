@@ -1,11 +1,17 @@
 <template>
-<span class="item">
+<span :class="'item ' + (field.value === 1 ? 'item-active' : '')">
 </span>
 </template>
 
 <script>
 export default {
-  name: "TheBoard"
+  name: "BoardItem",
+  props: {
+    field: {
+      type: Object,
+      required: true,
+    }
+  }
 }
 </script>
 
@@ -18,5 +24,12 @@ position: relative;
   display: inline-block;
   margin: 5px;
   cursor: pointer;
+  transition: .4s;
+  transform-style: preserve-3d;
+}
+
+.item-active {
+  background: blue;
+  transform: rotateX(180deg);
 }
 </style>
