@@ -1,0 +1,22 @@
+<template>
+<span class="item">
+</span>
+</template>
+
+<script>
+export default {
+  name: "TheBoard"
+}
+</script>
+
+<style scoped>
+.item {
+position: relative;
+  width: 50px;
+  height: 50px;
+  background: #ccc;
+  display: inline-block;
+  margin: 5px;
+  cursor: pointer;
+}
+</style>
