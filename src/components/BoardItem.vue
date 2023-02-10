@@ -1,11 +1,11 @@
 <template>
-  <span :class="getBoardItemClasses"></span>
-
+  <span :class="getBoardItemClasses" @click="select(field.id)"></span>
 </template>
 
 <script>
 import { GAME_STATUS, FIELD } from "@/constans";
 import { computed } from 'vue';
+
 export default {
   name: 'BoardItem',
   props: {
@@ -47,19 +47,20 @@ export default {
 
 <style scoped>
 .item {
-position: relative;
+  position: relative;
   width: 50px;
   height: 50px;
   background: #ccc;
-  display: inline-block;
   margin: 5px;
+  display: inline-block;
   cursor: pointer;
+
   transition: .4s;
   transform-style: preserve-3d;
 }
 
-.item-active {
-  background: blue;
+.item.active {
+  background: #42b983cc;
   transform: rotateX(180deg);
 }
 </style>
