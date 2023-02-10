@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-  <img class="logo" alt="Vue logo" src="./assets/logo.png">
+  <img class="logo" src="/public/favicon.jpg" alt="">
   <h1 class="h1">Запомни</h1>
   <p>Открой все зеленые клетки</p>
     <TheBoard/>
